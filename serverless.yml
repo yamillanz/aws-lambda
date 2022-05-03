@@ -1,0 +1,33 @@
+service: poc-invokenan-lambdacal
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+  httpApi:
+    cors: true
+  environment:
+    DOMAIN_NAME: 'e1-payment-gateway.backendnaranja.com'
+
+custom:
+  customDomain:
+    domainName: ${self:provider.environment.DOMAIN_NAME}
+    basePath: poc-invokenan-lambdacal
+    stage: ${self:provider.stage}
+
+functions:
+  calculateRandom:
+    handler: handler.calculateRandom
+    events:
+      - http:
+          path: /calculate/{number}
+          method: GET
+          request:
+            parameters:
+              paths:
+                number: true
+plugins:
+  - serverless-domain-manager

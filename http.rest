@@ -1,0 +1,1 @@
+GET https://e1-payment-gateway.backendnaranja.com/poc-invokenan-lambdacal/calculate/45 HTTP/1.1
